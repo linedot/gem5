@@ -86,6 +86,8 @@ class FALRUBlk : public CacheBlk
   public:
     FALRUBlk() : CacheBlk(), prev(nullptr), next(nullptr), inCachesMask(0) {}
 
+    using CacheBlk::operator=;
+
     /** The previous block in LRU order. */
     FALRUBlk *prev;
     /** The next block in LRU order. */

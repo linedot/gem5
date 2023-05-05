@@ -514,6 +514,7 @@ class TempCacheBlk final : public CacheBlk
     {
         data = new uint8_t[size];
     }
+    using CacheBlk::operator=;
     TempCacheBlk(const TempCacheBlk&) = delete;
     TempCacheBlk& operator=(const TempCacheBlk&) = delete;
     ~TempCacheBlk() { delete [] data; };

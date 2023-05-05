@@ -66,6 +66,8 @@ class SectorSubBlk : public CacheBlk
     SectorSubBlk(const SectorSubBlk&) = delete;
     SectorSubBlk& operator=(const SectorSubBlk&) = delete;
     SectorSubBlk(SectorSubBlk&&) = delete;
+
+    using CacheBlk::operator=;
     /**
      * Move assignment operator.
      * This should only be used to move an existing valid entry into an
