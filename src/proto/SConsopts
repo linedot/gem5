@@ -57,7 +57,7 @@ with gem5_scons.Configure(main) as conf:
         # check go a library config check and at that point the test
         # will fail if libprotobuf cannot be found.
         if conf.env['HAVE_PKG_CONFIG']:
-            conf.CheckPkgConfig('protobuf', '--cflags', '--libs-only-L')
+            conf.CheckPkgConfig('protobuf', '--cflags', '--libs')
         conf.env['HAVE_PROTOC'] = True
 
     # If we have the protobuf compiler, also make sure we have the
