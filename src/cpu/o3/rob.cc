@@ -222,6 +222,10 @@ ROB::insertInst(const DynInstPtr &inst)
     inst->setInROB();
 
     ++numInstsInROB;
+    if (numInstsInROB > stats.maxNumInstsInROB.value())
+    {
+        stats.maxNumInstsInROB = numInstsInROB;
+    }
     ++threadEntries[tid];
 
     assert((*tail) == inst);
@@ -523,6 +527,8 @@ ROB::readTailInst(ThreadID tid)
 
 ROB::ROBStats::ROBStats(statistics::Group *parent)
   : statistics::Group(parent, "rob"),
+    ADD_STAT(maxNumInstsInROB, statistics::units::Count::get(),
+        "max Number of Insructions in ROB"),
     ADD_STAT(reads, statistics::units::Count::get(),
         "The number of ROB reads"),
     ADD_STAT(writes, statistics::units::Count::get(),

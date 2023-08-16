@@ -136,6 +136,8 @@ Rename::RenameStats::RenameStats(statistics::Group *parent)
                "Number of vector predicate rename lookups"),
       ADD_STAT(matLookups, statistics::units::Count::get(),
                "Number of matrix rename lookups"),
+      ADD_STAT(max1000MinusVecFreeEntries, statistics::units::Count::get(),
+               "min number of free vector register rename entries"),
       ADD_STAT(committedMaps, statistics::units::Count::get(),
                "Number of HB maps that are committed"),
       ADD_STAT(undoneMaps, statistics::units::Count::get(),
@@ -170,6 +172,8 @@ Rename::RenameStats::RenameStats(statistics::Group *parent)
     vecLookups.prereq(vecLookups);
     vecPredLookups.prereq(vecPredLookups);
     matLookups.prereq(matLookups);
+
+    max1000MinusVecFreeEntries.prereq(max1000MinusVecFreeEntries);
 
     committedMaps.prereq(committedMaps);
     undoneMaps.prereq(undoneMaps);
@@ -657,6 +661,14 @@ Rename::renameInsts(ThreadID tid)
                 "Processing instruction [sn:%llu] with PC %s.\n",
                 tid, inst->seqNum, inst->pcState());
 
+
+        int numVecFreeEntries = renameMap[tid]->numFreeEntries(VecRegClass);
+        int num1000MinusVecFreeEntries = 1000 - numVecFreeEntries;
+        if (num1000MinusVecFreeEntries >
+                stats.max1000MinusVecFreeEntries.value())
+        {
+            stats.max1000MinusVecFreeEntries = num1000MinusVecFreeEntries;
+        }
         // Check here to make sure there are enough destination registers
         // to rename to.  Otherwise block.
         if (!renameMap[tid]->canRename(inst)) {
