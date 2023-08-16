@@ -525,6 +525,14 @@ class Rename
         statistics::Scalar vecLookups;
         statistics::Scalar vecPredLookups;
         statistics::Scalar matLookups;
+
+        /** TODO: Distribution of number of vector register rename
+         *  entries available each rename.
+         *  (Needs some thinking and changes) */
+        //statistics::Distribution nVecFreeEntriesDist;
+        // Ugly hack because counters get reset to zero
+        statistics::Scalar max1000MinusVecFreeEntries;
+
         /** Stat for total number of committed renaming mappings. */
         statistics::Scalar committedMaps;
         /** Stat for total number of mappings that were undone due to a

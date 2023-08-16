@@ -482,7 +482,8 @@ class InstructionQueue
 
     struct IQStats : public statistics::Group
     {
-        IQStats(CPU *cpu, const unsigned &total_width);
+        IQStats(CPU *cpu, const unsigned &total_width,
+                const unsigned &numEntries);
         /** Stat for number of instructions added. */
         statistics::Scalar instsAdded;
         /** Stat for number of non-speculative instructions added. */
@@ -525,6 +526,9 @@ class InstructionQueue
          * @todo: Need to create struct to track the ready time for each
          * instruction. */
         // statistics::VectorDistribution issueDelayDist;
+
+        /** Distribution of free entries in the queue */
+        statistics::Distribution numFreeEntriesDist;
 
         /** Number of times an instruction could not be issued because a
          * FU was busy.

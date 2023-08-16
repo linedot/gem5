@@ -94,7 +94,7 @@ InstructionQueue::InstructionQueue(CPU *cpu_ptr, IEW *iew_ptr,
       numEntries(params.numIQEntries),
       totalWidth(params.issueWidth),
       commitToIEWDelay(params.commitToIEWDelay),
-      iqStats(cpu, totalWidth),
+      iqStats(cpu, totalWidth, numEntries),
       iqIOStats(cpu)
 {
     assert(fuPool);
@@ -177,7 +177,8 @@ InstructionQueue::name() const
     return cpu->name() + ".iq";
 }
 
-InstructionQueue::IQStats::IQStats(CPU *cpu, const unsigned &total_width)
+InstructionQueue::IQStats::IQStats(CPU *cpu, const unsigned &total_width,
+        const unsigned &numEntries)
     : statistics::Group(cpu),
     ADD_STAT(instsAdded, statistics::units::Count::get(),
              "Number of instructions added to the IQ (excludes non-spec)"),
@@ -207,6 +208,8 @@ InstructionQueue::IQStats::IQStats(CPU *cpu, const unsigned &total_width)
              "Number of squashed non-spec instructions that were removed"),
     ADD_STAT(numIssuedDist, statistics::units::Count::get(),
              "Number of insts issued each cycle"),
+    ADD_STAT(numFreeEntriesDist, statistics::units::Count::get(),
+             "Number of freeEntries in IQ each cycle"),
     ADD_STAT(statFuBusy, statistics::units::Count::get(),
              "attempts to use FU when none available"),
     ADD_STAT(statIssuedInstType, statistics::units::Count::get(),
@@ -280,6 +283,10 @@ InstructionQueue::IQStats::IQStats(CPU *cpu, const unsigned &total_width)
         dist_unissued.subname(i, unissued_names[i]);
     }
 */
+    numFreeEntriesDist
+        .init(0,numEntries,1)
+        .flags(statistics::pdf)
+        ;
     statIssuedInstType
         .init(cpu->numThreads,enums::Num_OpClass)
         .flags(statistics::total | statistics::pdf | statistics::dist)
@@ -576,6 +583,7 @@ InstructionQueue::insert(const DynInstPtr &new_inst)
             new_inst->seqNum, new_inst->pcState());
 
     assert(freeEntries != 0);
+    iqStats.numFreeEntriesDist.sample(freeEntries);
 
     instList[new_inst->threadNumber].push_back(new_inst);
 
