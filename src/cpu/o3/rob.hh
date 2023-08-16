@@ -334,6 +334,9 @@ class ROB
     {
         ROBStats(statistics::Group *parent);
 
+        // max. number of instructions in ROB
+        statistics::Scalar maxNumInstsInROB;
+
         // The number of rob_reads
         statistics::Scalar reads;
         // The number of rob_writes
