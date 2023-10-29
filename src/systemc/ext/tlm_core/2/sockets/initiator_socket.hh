@@ -132,6 +132,9 @@ class tlm_base_initiator_socket :
     //
     virtual void bind(bw_interface_type &ifs) { (get_base_export())(ifs); }
     void operator() (bw_interface_type &s) { bind(s); }
+    
+#pragma GCC diagnostic pop
+    using sc_core::sc_port<FW_IF, N, POL>::bind;
 
     // Implementation of tlm_base_socket_if functions
     virtual sc_core::sc_port_base &get_port_base() { return *this; }
