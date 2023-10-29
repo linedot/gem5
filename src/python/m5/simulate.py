@@ -166,7 +166,7 @@ def instantiate(ckpt_dir=None):
     # a checkpoint, If so, this call will shift them to be at a valid time.
     updateStatEvents()
 
-    gather_citations(root)
+    # gather_citations(root)
 
 
 need_startup = True
