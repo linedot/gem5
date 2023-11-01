@@ -70,6 +70,8 @@ def _gem5_args_for_multiprocessing(name):
         f"--stderr-file={options.stderr_file}",
         f"--stats-file={options.stats_file}",
     ]
+    if options.no_output_files:
+        arguments.append("--no-output-files")
     if options.redirect_stdout:
         arguments.append("--redirect-stdout")
     if options.redirect_stderr:

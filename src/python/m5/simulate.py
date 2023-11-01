@@ -94,14 +94,14 @@ def instantiate(ckpt_dir=None):
     for obj in root.descendants():
         obj.unproxyParams()
 
-    if options.dump_config:
+    if options.dump_config and not options.no_output_files:
         ini_file = open(os.path.join(options.outdir, options.dump_config), "w")
         # Print ini sections in sorted order for easier diffing
         for obj in sorted(root.descendants(), key=lambda o: o.path()):
             obj.print_ini(ini_file)
         ini_file.close()
 
-    if options.json_config:
+    if options.json_config and not options.no_output_files:
         try:
             import json
 
@@ -114,7 +114,7 @@ def instantiate(ckpt_dir=None):
         except ImportError:
             pass
 
-    if options.dot_config:
+    if options.dot_config and not options.no_output_files:
         do_dot(root, options.outdir, options.dot_config)
         do_ruby_dot(root, options.outdir, options.dot_config)
 
@@ -146,7 +146,7 @@ def instantiate(ckpt_dir=None):
     # We want to generate the DVFS diagram for the system. This can only be
     # done once all of the CPP objects have been created and initialised so
     # that we are able to figure out which object belongs to which domain.
-    if options.dot_dvfs_config:
+    if options.dot_dvfs_config and not options.no_output_files:
         do_dvfs_dot(root, options.outdir, options.dot_dvfs_config)
 
     # We're done registering statistics.  Enable the stats package now.
@@ -166,7 +166,8 @@ def instantiate(ckpt_dir=None):
     # a checkpoint, If so, this call will shift them to be at a valid time.
     updateStatEvents()
 
-    # gather_citations(root)
+    if not options.no_output_files:
+        gather_citations(root)
 
 
 need_startup = True
@@ -475,7 +476,8 @@ def fork(simout="%(parent)s.f%(fork_seq)i"):
             "fork_seq": fork_count,
             "pid": os.getpid(),
         }
-        _m5.core.setOutputDir(options.outdir)
+        if not options.no_output_files:
+            _m5.core.setOutputDir(options.outdir)
     else:
         fork_count += 1
 
