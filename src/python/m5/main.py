@@ -137,6 +137,12 @@ def parse_options():
         help="Filename for -e redirection [Default: %default]",
     )
     option(
+        "--no-output-files",
+        action="store_true",
+        default=False,
+        help="Prevent gem5 from creating any output files",
+    )
+    option(
         "--listener-mode",
         metavar="{on,off,auto}",
         choices=listener_modes,
@@ -406,8 +412,9 @@ def main():
     event.mainq = event.getEventQueue(0)
     event.setEventQueue(event.mainq)
 
-    if not os.path.isdir(options.outdir):
-        os.makedirs(options.outdir)
+    if not options.no_output_files:
+        if not os.path.isdir(options.outdir):
+            os.makedirs(options.outdir)
 
     # These filenames are used only if the redirect_std* options are set
     stdout_file = os.path.join(options.outdir, options.stdout_file)
@@ -551,13 +558,15 @@ def main():
         options.usage(2)
 
     # tell C++ about output directory
-    core.setOutputDir(options.outdir)
+    if not options.no_output_files:
+        core.setOutputDir(options.outdir)
 
     # update the system path with elements from the -p option
     sys.path[0:0] = options.path
 
     # set stats options
-    stats.addStatVisitor(options.stats_file)
+    if not options.no_output_files:
+        stats.addStatVisitor(options.stats_file)
 
     # Disable listeners unless running interactively or explicitly
     # enabled

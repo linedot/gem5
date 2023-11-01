@@ -76,6 +76,8 @@ def _gem5_args_for_multiprocessing(name):
         # Keep the stats file name. It will be in the new outdir
         f"--stats-file={options.stats_file}",
     ]
+    if options.no_output_files:
+        arguments.append("--no-output-files")
     if options.redirect_stdout:
         arguments.append("--redirect-stdout")
     if options.redirect_stderr:
