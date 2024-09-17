@@ -50,6 +50,9 @@ class TimingResponseProtocol;
 
 class TimingRequestProtocol
 {
+  public:
+    virtual constexpr ~TimingRequestProtocol() = default;
+  private:
     friend class TimingResponseProtocol;
 
   protected:
@@ -124,6 +127,9 @@ class TimingRequestProtocol
 
 class TimingResponseProtocol
 {
+  public:
+    virtual constexpr ~TimingResponseProtocol() = default;
+  private:
     friend class TimingRequestProtocol;
 
   protected:

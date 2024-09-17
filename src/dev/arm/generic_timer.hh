@@ -76,6 +76,7 @@ struct GenericTimerMemParams;
 class SystemCounterListener
 {
   public:
+    virtual constexpr ~SystemCounterListener() = default;
     /// Called from the SystemCounter when a change in counting speed occurred
     /// Events should be rescheduled properly inside this member function
     virtual void notify(void) = 0;

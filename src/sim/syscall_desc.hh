@@ -69,6 +69,7 @@ SyscallReturn unimplementedFunc(SyscallDesc *desc, ThreadContext *tc);
 class SyscallDesc
 {
   public:
+    virtual ~SyscallDesc() = default;
     /**
      * Interface for invoking the system call funcion pointer. Note that
      * this acts as a gateway for all system calls and serves a good point

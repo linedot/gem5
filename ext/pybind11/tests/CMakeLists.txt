@@ -387,7 +387,7 @@ function(pybind11_enable_warnings target_name)
               -Wcast-qual
               -Wdeprecated
               -Wundef
-              -Wnon-virtual-dtor)
+              $<$<COMPILE_LANGUAGE:CXX>:-Wnon-virtual-dtor>)
   endif()
 
   if(PYBIND11_WERROR)

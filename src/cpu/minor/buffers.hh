@@ -83,6 +83,7 @@ class ReportIF
 class BubbleIF
 {
   public:
+    virtual constexpr ~BubbleIF() = default;
     virtual bool isBubble() const = 0;
 };
 

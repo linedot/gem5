@@ -53,6 +53,7 @@ namespace gem5
  */
 struct CacheAccessor
 {
+    virtual constexpr ~CacheAccessor() = default;
     /** Determine if address is in cache */
     virtual bool inCache(Addr addr, bool is_secure) const = 0;
 

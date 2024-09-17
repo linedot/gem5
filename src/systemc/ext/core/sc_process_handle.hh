@@ -60,6 +60,7 @@ struct ProcessMemberFuncWrapper : public ProcessFuncWrapper
 
 struct ExceptionWrapperBase
 {
+    virtual constexpr ~ExceptionWrapperBase() = default;
     virtual void throw_it() = 0;
 };
 

@@ -63,6 +63,7 @@ class OutputDirectory;
 class VncKeyboard
 {
   public:
+    virtual constexpr ~VncKeyboard() = default;
     /**
      * Called when the vnc server receives a key press event from the
      * client.
@@ -75,6 +76,7 @@ class VncKeyboard
 class VncMouse
 {
   public:
+    virtual constexpr ~VncMouse() = default;
     /**
      * called whenever the mouse moves or it's button state changes
      * buttons is a simple mask with each button (0-8) corresponding to

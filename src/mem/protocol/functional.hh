@@ -51,6 +51,9 @@ class FunctionalResponseProtocol;
 
 class FunctionalRequestProtocol
 {
+  public:
+    virtual constexpr ~FunctionalRequestProtocol() = default;
+  private:
     friend class FunctionalResponseProtocol;
 
   protected:
@@ -81,6 +84,9 @@ class FunctionalRequestProtocol
 
 class FunctionalResponseProtocol
 {
+  public:
+    virtual constexpr ~FunctionalResponseProtocol() = default;
+  private:
     friend class FunctionalRequestProtocol;
 
   protected:

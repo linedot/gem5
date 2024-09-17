@@ -62,6 +62,7 @@ namespace gem5
 class GicV2Registers
 {
   public:
+    virtual constexpr ~GicV2Registers() = default;
     virtual uint32_t readDistributor(ContextID ctx, Addr daddr) = 0;
     virtual uint32_t readCpu(ContextID ctx, Addr daddr) = 0;
 

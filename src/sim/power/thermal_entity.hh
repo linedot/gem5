@@ -54,6 +54,7 @@ class ThermalNode;
 class ThermalEntity
 {
   public:
+    virtual constexpr ~ThermalEntity() = default;
     // Get the equation given a node and a step in seconds (assuming N nodes)
     virtual LinearEquation getEquation(ThermalNode *tn, unsigned n,
                                        double step) const = 0;

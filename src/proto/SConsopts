@@ -65,6 +65,11 @@ with gem5_scons.Configure(main) as conf:
                                     'C++', 'GOOGLE_PROTOBUF_VERIFY_VERSION;'))
     )
 
+    # -Wnon-virtual-dtor is invalid for C, but valid for C++
+    if '-Wnon-virtual-dtor' in main['CCFLAGS']:
+        main['CCFLAGS'].remove("-Wnon-virtual-dtor")
+        main.Append(CXXFLAGS="-Wnon-virtual-dtor")
+
 # If we have the compiler but not the library, print another warning.
 if main['HAVE_PROTOC'] and not main['CONF']['HAVE_PROTOBUF']:
     warning('Did not find protocol buffer library and/or headers.\n'

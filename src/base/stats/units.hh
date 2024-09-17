@@ -120,6 +120,7 @@ namespace units
 class Base
 {
   public:
+    virtual ~Base() = default;
     virtual std::string getUnitString() const = 0;
 };
 
@@ -350,14 +351,14 @@ class Rate : public Base
         "otherwise, it would be a Ratio");
 
   private:
-    Rate<T1,T2>() {}
+    Rate() {}
   public:
-    Rate<T1,T2>(Rate<T1,T2> const&) = delete;
-    void operator=(Rate<T1,T2> const&) = delete;
-    static Rate<T1,T2>*
+    Rate(Rate const&) = delete;
+    void operator=(Rate const&) = delete;
+    static Rate*
     get()
     {
-        static Rate<T1,T2> instance;
+        static Rate instance;
         return &instance;
     }
     static std::string
@@ -368,7 +369,7 @@ class Rate : public Base
     std::string
     getUnitString() const override
     {
-        return Rate<T1,T2>::toString();
+        return Rate::toString();
     }
 };
 

@@ -553,7 +553,7 @@ for variant_path in variant_paths:
         env.Append(CCFLAGS=['-fno-strict-aliasing'])
 
         # We always compile using C++17
-        env.Append(CXXFLAGS=['-std=c++17'])
+        env.Append(CXXFLAGS=['-std=c++20'])
 
         if sys.platform.startswith('freebsd'):
             env.Append(CCFLAGS=['-I/usr/local/include'])
@@ -609,6 +609,7 @@ for variant_path in variant_paths:
         # want to allow (e.g., deprecation warnings).
         env.Append(CCFLAGS=['-Werror',
                              '-Wno-error=deprecated-declarations',
+                             '-Wno-error=deprecated-enum-enum-conversion',
                              '-Wno-error=deprecated',
                             ])
     else:

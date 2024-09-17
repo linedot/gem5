@@ -40,6 +40,7 @@
 #include <direct.h>
 #include <io.h>
 #else
+#include <linux/limits.h>
 #include <limits.h>
 
 #include <climits>  // Some Linux distributions define PATH_MAX here.

@@ -74,6 +74,7 @@ class TableWalker : public ClockedObject
     {
       public:
         DescriptorBase() : lookupLevel(LookupLevel::L0) {}
+        virtual constexpr ~DescriptorBase() = default;
 
         /** Current lookup level for this descriptor */
         LookupLevel lookupLevel;

@@ -256,6 +256,7 @@ class MultiperspectivePerceptron : public BPredUnit
         p2(_p2), p3(_p3), coeff(_coeff), size(_size), width(_width),
         mpp(_mpp)
         {}
+        virtual constexpr ~HistorySpec() = default;
 
         /**
          * Gets the hash to index the table, using the pc of the branch,

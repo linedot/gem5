@@ -67,6 +67,7 @@ class PCEvent
 class PCEventScope
 {
   public:
+    virtual constexpr ~PCEventScope() = default;
     virtual bool remove(PCEvent *event) = 0;
     virtual bool schedule(PCEvent *event) = 0;
 };

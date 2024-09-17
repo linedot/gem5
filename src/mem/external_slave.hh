@@ -95,6 +95,7 @@ class ExternalSlave : public SimObject
     class Handler
     {
       public:
+        virtual constexpr ~Handler() = default;
         /** Create or find an external port which can be bound.  Returns
          *  NULL on failure */
         virtual ExternalPort *getExternalPort(

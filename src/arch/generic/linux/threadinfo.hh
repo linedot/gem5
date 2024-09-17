@@ -72,7 +72,7 @@ class ThreadInfo
     {
 
     }
-    ~ThreadInfo()
+    virtual ~ThreadInfo()
     {}
 
     virtual Addr

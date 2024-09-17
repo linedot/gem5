@@ -143,6 +143,7 @@ class ObjectFileFormat
 
   public:
     ObjectFileFormat(const ObjectFileFormat &) = delete;
+    virtual constexpr ~ObjectFileFormat() = default;
     void operator=(const ObjectFileFormat &) = delete;
 
     virtual ObjectFile *load(ImageFileDataPtr data) = 0;

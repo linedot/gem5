@@ -51,6 +51,9 @@ class AtomicResponseProtocol;
 
 class AtomicRequestProtocol
 {
+  public:
+    virtual constexpr ~AtomicRequestProtocol() = default;
+  private:
     friend class AtomicResponseProtocol;
 
   protected:
@@ -88,6 +91,9 @@ class AtomicRequestProtocol
 
 class AtomicResponseProtocol
 {
+  public:
+    virtual constexpr ~AtomicResponseProtocol() = default;
+  private:
     friend class AtomicRequestProtocol;
 
   protected:
